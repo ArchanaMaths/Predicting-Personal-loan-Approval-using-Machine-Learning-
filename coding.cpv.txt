@@ -1,0 +1,186 @@
+import pandas as pd
+import numpy as np
+import pickle
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+import sklearn
+from sklearn.tree import DesicionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import RandomizedSearchCV
+import sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score
+
+data['Gender']=data['Gender'].fillna(data['Gender'].mode()[0])
+data['Married']=data['Married'].fillna(data['Married'].mode()[0])
+data['Dependents']=data['Dependents'].str.replace('+','')
+data['Dependents']=data['Dependents'].fillna(data['Dependents'].mode()[0])
+data['Self_Employed']=data['Self_Employed'].fillna(data['Self_Employed'].mode()[0])
+data['LoanAmount']=data['LoanAmount'].fillna(data['LoanAmount'].mode()[0])
+data['Loan_Amount_Team']=data['Loan_Amount_Team'].fillna(data['Loan_Amount_Term'].mode()[0])
+data['Credit_History']=data['Credit_History'].fillna(data['Credit_History'].mode()[0])
+
+data['Gender']=data['Gender'].astype('int64')
+data['Married']=data['Married'].astype('int64']
+data['Dependents']=data['Dependents'].astype('int64')
+data['Self_Employed']=data['Self_Employed'].astype('int64')
+data['CoapplicantIncome']=data['CoapplicantIncome'].astype('int64')
+data['LoanAmount']=data['LoanAmount'].astype('int64')
+data['Loan_Amount_Team']=data['Loan_Amount_Team'].astype('int64')
+data['Credit_History']=data['Credit_History'].astype('int64')
+
+from imblearb=n.combinc importSMOTETomek
+
+smote = SMOTETomek(0.90)
+
+y = data['Loan_Status']
+x = data.drop(colums=['Loan_Status'],axis=1)
+
+x_bal,y_bal = smote.fit_resample(x,y)
+
+print(y.value_counts())
+print(y_bal.value_counts())
+
+plt.figure(figsize=(12.5))
+plt.subplot(121)
+sns.distplot(data['ApplicantIncome'], color='r')
+plt.subplot(122)
+sns.displot(data['Credit_History'])
+plt.show()
+
+plt.figure(figure=18.4))
+plt.subplot(1,4,1)
+sns.countplot(data['Gender'])
+plt.subplot(1,4,2)
+sns.countplot(data['Education'])
+plt.show()
+
+plt.figure(figsize=(20,5))
+plt.subplot(131)
+sns.countplot(data['Married'], hue=data['Gender'])
+plt.subplot(132)
+sns.countplot(data['Self_Employed'], hue=data['Education])
+plt.subplot(133)
+sns.countplot(data[Preperty_Area'], hue=data['Loan_Amount_Team'])
+
+sns.swarmplot(data['Gender'],data['ApplicantIncome'], hue=data['Loan_Status])
+
+sc=StandardScaler()
+x_bal=sc.fit_transform(x_bal)
+
+x_bal = pd.DataFrame(x_bal,columns=names)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    x_bal, y_bal, test_size=0.33, random_state=42)
+
+def decisionTree(x_train, x_test, y_train, y_test):
+    dt=DecisionTreeClassifier()
+    dt.fit(x_train,y_train)
+    yPred=dt.predict(x_test)
+    print('***DecisionTreeClassifier***')
+    print('Confusion matrix')
+    print(confusion_matrix(y_test,yPred))
+    print('Classification report')
+    print(classification_reporty(y_test,yPred))
+
+def randomForest(x_train, x_test, y_train, y_test):
+    rf=RandomForestClassifier()
+    rf.fit(x_train,y_train)
+    yPred=rf.predict(x_test)
+    print('***RamdomForestClassifier***')
+    print('Confusion matrix')
+    print(confusion_matrix(y_test,yPred))
+    print('Classification report')
+    print(classification_report(y_test,yPred))
+
+def KNN(x_train, x_test, y_train, y_test):
+    knn=KNeighbousClassifier()
+    knn.fit(x_train,y_train)
+    yPred=knn.predict(x_test)
+    print('***KNeighborsClassifier***')
+    print('Confusion matrix')
+    print(confustion_matrix(y_test,yPred))
+    print('Classification report')
+    print(classification_report(y_test,yPred))
+
+def xgboost(x_train, x_test, y_train, y_test):
+    xg=GradientBoostingClassifier()
+    xg.fit(x_train,y_train)
+    yPred=xg.predict(x_test)
+    print('***GradientBoostingClassifier***')
+    print('Confusion matrix')
+    print(confusion_matrix(y_test,yPred))
+    print('Classification report')
+    print(classification_report(y_test,yPred))
+
+import tensorflow
+from tensortflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+ 
+classifier = Sequential()
+
+classifier.add(Dense(units=100,activation='relu',input_dim=11))
+
+classifier.add(Dense(units=5, activation='sigmoid'))
+
+classifier.compile(optimizer='adam',loss='binary_crossentropy', metrics=['accyract'])
+
+classifier.save("loan.h5")
+
+yPred = classifier.predict(x_test)
+
+y_pred
+
+y_pred = (y_pred > 0.5)
+y_pred
+
+sample_value =np.array(sample_value)
+ 
+sample_value= sample_value.reshape(1,-1)
+
+sample_value=sc.transform(sample_value)
+
+return classifier.predict(sample_value)
+
+sample_value=[[1,1,0,1,1,4276,1542,145,240,0,1]]
+if predict_exit(sample_value)>0.5:
+   print('Prediction: High chance of Loan Approval!)
+else:
+   print('Prediction: Low chance Loan Approval.')
+
+
+def compareModel(X_train,X_test,y_train,y_test)
+  decisionTree(X_train,X_test,y_train,t_test)
+  print('-'*100)
+  RandomForest(X_train,X_test,y_train,y_test)
+  print('-'*100)
+  XCG(X_train,X_test,y_train,y_test)
+  print('-'*100)
+  KNN(X_train,X_test,y_train,y_test)
+  print('-'*100)
+
+yPred=classifier.predict(X-test)
+print(accuracy_score(y_pred,y_test))
+print("ANN Model")
+print("Confusion_Matrix")
+print(confusion_matrix(y_test,y_pred)
+print("Classification Report")
+print(classification_report(y_test,y_pred))
+
+from sklearn.model_selection import cross_val_score
+
+rf=RandomForestClassifier()
+rf.fit(x_train,y_train)
+yPred=rf.predict(x_test)
+
+f1_score(yPred,y_test/average='weighted')
+0.9679166666666668
+cv=cross_val_score(rf,x,y,cv=5)
+
+np.meab(cv)
+0.985
+pickel.dump(model,open('rdf.pk1','wb'))
+
+  
